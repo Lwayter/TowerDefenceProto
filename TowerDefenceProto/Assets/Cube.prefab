@@ -439,6 +439,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 94c80e78a5dfb2c4d996407b2e24c739, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  exporedColor: {r: 0, g: 0.6366434, b: 1, a: 0}
+  isExplored: 0
+  exploredFrom: {fileID: 0}
 --- !u!1 &7283332793130323974
 GameObject:
   m_ObjectHideFlags: 0

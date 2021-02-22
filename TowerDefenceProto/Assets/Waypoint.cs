@@ -2,8 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Waypoint: MonoBehaviour
+public class Waypoint : MonoBehaviour
 {
+    [SerializeField] Color exporedColor;
+
+    public bool isExplored = false;
+    public Waypoint exploredFrom;
+
     Vector2Int gridPos;
 
     const int gridSize = 10;
@@ -11,6 +16,14 @@ public class Waypoint: MonoBehaviour
     public int GetGridSize()
     {
         return gridSize;
+    }
+
+    void Update()
+    {
+        if (isExplored)
+        {
+            SetTopColor(exporedColor);
+        }
     }
 
     public Vector2Int GetGridPos()
