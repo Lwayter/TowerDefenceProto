@@ -26,6 +26,5 @@ public class EnemyDamage : MonoBehaviour
     {
         
         hitPoints = hitPoints - 1;
-        print("current hitpoints after hit is " + hitPoints);
     }
 }
