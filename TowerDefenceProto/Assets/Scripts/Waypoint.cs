@@ -4,10 +4,11 @@ using UnityEngine;
 
 public class Waypoint : MonoBehaviour
 {
-    [SerializeField] Color exporedColor;
-
     public bool isExplored = false;
     public Waypoint exploredFrom;
+    public bool isPlaceable = true;
+
+    [SerializeField] Tower towerPrefab;
 
     Vector2Int gridPos;
 
@@ -18,12 +19,13 @@ public class Waypoint : MonoBehaviour
         return gridSize;
     }
 
+    private void Start()
+    {
+        Physics.queriesHitTriggers = true;
+    }
+
     void Update()
     {
-        if (isExplored)
-        {
-            //SetTopColor(exporedColor);
-        }
     }
 
     public Vector2Int GetGridPos()
@@ -34,9 +36,14 @@ public class Waypoint : MonoBehaviour
         );
     }
 
-    /*public void SetTopColor(Color color)
+    private void OnMouseOver()
     {
-        MeshRenderer topMeshRenderer =  transform.Find("Top").GetComponent<MeshRenderer>();
-        topMeshRenderer.material.color = color;
-    } */
+        if (Input.GetMouseButtonDown(0))
+        {
+            if (isPlaceable == true)
+            {
+                FindObjectOfType<TowerFactory>().AddTower(this);
+            }
+        }
+    }
 }

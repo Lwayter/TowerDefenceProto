@@ -6,7 +6,7 @@ using UnityEngine;
 public class EnemyMovement : MonoBehaviour
 {
 
-    List<Waypoint> path;
+    [SerializeField] ParticleSystem goalParticle;
 
     // Start is called before the first frame update
     void Start()
@@ -18,18 +18,30 @@ public class EnemyMovement : MonoBehaviour
 
     IEnumerator FollowPath(List<Waypoint> path)
     {
-        print("Starting patrol...");
         foreach (Waypoint waypoint in path)
         {
-            transform.position = waypoint.transform.position;
-            yield return new WaitForSeconds(1f);
+            Vector3 startPosition = transform.position;
+            Vector3 endPosition = waypoint.transform.position;
+            float travelPercent = 0f;
+
+            transform.LookAt(endPosition);
+
+            while (travelPercent < 1f)
+            {
+                travelPercent += Time.deltaTime;
+                transform.position = Vector3.Lerp(startPosition, endPosition, travelPercent);
+                yield return new WaitForEndOfFrame();
+            }
         }
-        print("Ending patrol");
+        SelfDestruct();
     }
 
-    // Update is called once per frame
-    void Update()
+    
+    private void SelfDestruct()
     {
-        
+        var vfx = Instantiate(goalParticle, gameObject.transform.position, Quaternion.identity);
+        vfx.Play();
+        Destroy(vfx.gameObject, vfx.main.duration);
+        Destroy(gameObject);
     }
 }
