@@ -10,6 +10,7 @@ public class EnemyDamage : MonoBehaviour
     [SerializeField] ParticleSystem hitParticlePrefab;
     [SerializeField] ParticleSystem deathParticlePrefab;
 
+    PlayerHealth player;
 
     private void OnParticleCollision(GameObject other)
     {
@@ -20,8 +21,15 @@ public class EnemyDamage : MonoBehaviour
         }
     }
 
+    private void Start()
+    {
+        player = FindObjectOfType<PlayerHealth>();
+    }
+
     private void KillEnemy()
     {
+        player.EnemyDied();
+        player.ChangeProgresshBar();
         var vfx = Instantiate(deathParticlePrefab, gameObject.transform.position, Quaternion.identity);
         vfx.Play();
         float destroyDelay = vfx.main.duration;

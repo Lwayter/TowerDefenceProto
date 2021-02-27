@@ -9,7 +9,7 @@ public class EnemySpawner : MonoBehaviour
     [SerializeField] float secondsBetweenSpawns = 3;
     [SerializeField] EnemyMovement enemyPrefab;
     [SerializeField] Transform enemyParentTransform;
-
+    //[SerializeField] AudioClip spawnedEnemySFX;
 
     // Update is called once per frame
     void Start()
@@ -28,6 +28,7 @@ public class EnemySpawner : MonoBehaviour
 
     private void SpawnNext()
     {
+        //GetComponent<AudioSource>().PlayOneShot(spawnedEnemySFX);
         var newEnemy = Instantiate(enemyPrefab, transform.position, Quaternion.identity);
         newEnemy.transform.parent = enemyParentTransform;
         
